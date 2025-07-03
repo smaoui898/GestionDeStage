@@ -1,0 +1,87 @@
+<!-- login.component.html -->
+<div class="login-container">
+  <div class="login-form">
+    <!-- Logo -->
+    <div class="logo">
+      <fa-icon [icon]="faUserGraduate"></fa-icon>
+    </div>
+    
+    <h1>Page de Connexion</h1>
+    <p class="subtitle">Veuillez vous connecter pour accéder à l'application</p>
+    
+    <!-- Login Form -->
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Email</label>
+        <div class="input-wrapper">
+          <fa-icon [icon]="faEnvelope" class="input-icon"></fa-icon>
+          <input type="email" placeholder="Votre email" [(ngModel)]="loginForm.email" name="email" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <div class="input-wrapper">
+          <fa-icon [icon]="faLock" class="input-icon"></fa-icon>
+          <input type="password" placeholder="Votre mot de passe" [(ngModel)]="loginForm.password" name="password" required>
+        </div>
+      </div>
+      
+      <button type="submit" class="login-btn">
+        <span>Se connecter</span>
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+      </button>
+      
+      <div class="forgot-password">
+        <a href="#">Mot de passe oublié?</a>
+      </div>
+    </form>
+    
+    <div class="security-info">
+      <fa-icon [icon]="faShieldAlt"></fa-icon>
+      <span>Connexion sécurisée</span>
+    </div>
+  </div>
+  
+  <div class="info-panel">
+    <h2>Gestion des Stagiaires</h2>
+    <p class="info-subtitle">Plateforme complète pour le suivi, l'évaluation et la gestion des missions</p>
+    
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <fa-icon [icon]="faTasks"></fa-icon>
+        </div>
+        <div class="stat-text">
+          <div class="stat-title">Missions</div>
+          <div class="stat-value">8 en cours</div>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <fa-icon [icon]="faUserTie"></fa-icon>
+        </div>
+        <div class="stat-text">
+          <div class="stat-title">Encadrants</div>
+          <div class="stat-value">12 actifs</div>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-icon">
+          <fa-icon [icon]="faChartBar"></fa-icon>
+        </div>
+        <div class="stat-text">
+          <div class="stat-title">Évaluations</div>
+          <div class="stat-value">85% complétées</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="security-badge">
+      <fa-icon [icon]="faLock"></fa-icon>
+      <span>Connexion sécurisée SSL</span>
+    </div>
+  </div>
+</div>
