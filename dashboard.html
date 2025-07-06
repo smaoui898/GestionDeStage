@@ -1,0 +1,183 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <fa-icon [icon]="faUsersCog"></fa-icon>
+      </div>
+      <div class="logo-text">
+        <h2>Gestion Stagiaires</h2>
+        <p>Administration</p>
+      </div>
+    </div>
+
+    <nav class="menu-items">
+      <a class="menu-item active">
+        <fa-icon [icon]="faThLarge"></fa-icon>
+        <span>Tableau de bord</span>
+      </a>
+      <a class="menu-item">
+        <fa-icon [icon]="faUserGraduate"></fa-icon>
+        <span>Stagiaires</span>
+      </a>
+      <a class="menu-item">
+        <fa-icon [icon]="faUserTie"></fa-icon>
+        <span>Encadrants</span>
+      </a>
+      <a class="menu-item">
+        <fa-icon [icon]="faTasks"></fa-icon>
+        <span>Missions</span>
+      </a>
+      <a class="menu-item">
+        <fa-icon [icon]="faStar"></fa-icon>
+        <span>Évaluations</span>
+      </a>
+      <a class="menu-item">
+        <fa-icon [icon]="faFileAlt"></fa-icon>
+        <span>Rapports</span>
+      </a>
+      <a class="menu-item">
+        <fa-icon [icon]="faCog"></fa-icon>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+
+    <div class="user-profile">
+      <div class="user-avatar">
+        <fa-icon [icon]="faUser"></fa-icon>
+      </div>
+      <div class="user-info">
+        <p class="user-name">Admin RH</p>
+        <p class="user-email">{{ adminEmail }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <h1>Dashboard RH</h1>
+      <p>Vue d'ensemble des stagiaires</p>
+    </header>
+
+    <div class="stats-grid">
+      <!-- Total Stagiaires -->
+      <div class="stat-card blue">
+        <div class="stat-content">
+          <p class="stat-title">Total Stagiaires</p>
+          <h3 class="stat-value">{{ totalStagiaires }}</h3>
+          <p class="stat-change positive">
+            <fa-icon [icon]="faArrowUp"></fa-icon> +8% ce trimestre
+          </p>
+        </div>
+        <div class="stat-icon">
+          <fa-icon [icon]="faUserGraduate"></fa-icon>
+        </div>
+      </div>
+
+      <!-- Stagiaires Actifs -->
+      <div class="stat-card green">
+        <div class="stat-content">
+          <p class="stat-title">Stagiaires Actifs</p>
+          <h3 class="stat-value">{{ stagiairesActifs }}</h3>
+          <p class="stat-change">66% du total</p>
+        </div>
+        <div class="stat-icon">
+          <fa-icon [icon]="faUserCheck"></fa-icon>
+        </div>
+      </div>
+
+      <!-- Durée Moyenne -->
+      <div class="stat-card purple">
+        <div class="stat-content">
+          <p class="stat-title">Durée Moyenne</p>
+          <h3 class="stat-value">{{ dureeMoyenne }} <span>mois</span></h3>
+          <p class="stat-change">
+            <fa-icon [icon]="faCalendarAlt"></fa-icon> Période standard
+          </p>
+        </div>
+        <div class="stat-icon">
+          <fa-icon [icon]="faClock"></fa-icon>
+        </div>
+      </div>
+
+      <!-- Note Moyenne -->
+      <div class="stat-card orange">
+        <div class="stat-content">
+          <p class="stat-title">Note Moyenne</p>
+          <h3 class="stat-value">{{ noteMoyenne }} <span>/10</span></h3>
+          <p class="stat-change positive">
+            <fa-icon [icon]="faArrowUp"></fa-icon> +0.5 vs période préc.
+          </p>
+        </div>
+        <div class="stat-icon">
+          <fa-icon [icon]="faStar"></fa-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <!-- Duration Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Répartition des Durées de Stage</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="durationChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Rating Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Évolution des Notes</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="ratingChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="bottom-section">
+      <!-- Filière Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Répartition par Filière</h3>
+        </div>
+        <div class="chart-container">
+          <canvas id="filiereChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Top Encadrants -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Top Encadrants</h3>
+          <a href="#" class="view-all">Voir tout</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Service</th>
+              <th>Stagiaires</th>
+              <th>Note Moy.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let encadrant of topEncadrants; trackBy: trackByEncadrant">
+              <td>
+                <strong>{{ encadrant.nom }}</strong>
+                <span>{{ encadrant.service }}</span>
+              </td>
+              <td>{{ encadrant.stagiaires }}</td>
+              <td>{{ encadrant.note }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
