@@ -1,50 +1,44 @@
 package com.gestionstagiaires.crud.controller;
 
-import com.gestionstagiaires.crud.entity.Stagiaire;
+import com.gestionstagiaires.crud.dto.StagiaireDTO;
 import com.gestionstagiaires.crud.service.StagiaireService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/stagiaires")
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class StagiaireController {
 
     private final StagiaireService stagiaireService;
 
-    @Autowired
-    public StagiaireController(StagiaireService stagiaireService) {
-        this.stagiaireService = stagiaireService;
-    }
-
     @GetMapping
-    public ResponseEntity<List<Stagiaire>> getAllStagiaires() {
-        List<Stagiaire> stagiaires = stagiaireService.getAllStagiaires();
-        return new ResponseEntity<>(stagiaires, HttpStatus.OK);
+    public ResponseEntity<Page<StagiaireDTO>> getAllStagiaires(
+            @PageableDefault(size = 10, sort = "nom") Pageable pageable) {
+        return new ResponseEntity<>(stagiaireService.getAllStagiaires(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Stagiaire> getStagiaireById(@PathVariable Long id) {
-        Stagiaire stagiaire = stagiaireService.getStagiaireById(id);
-        return new ResponseEntity<>(stagiaire, HttpStatus.OK);
+    public ResponseEntity<StagiaireDTO> getStagiaireById(@PathVariable Long id) {
+        return new ResponseEntity<>(stagiaireService.getStagiaireById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Stagiaire> createStagiaire(@RequestBody Stagiaire stagiaire) {
-        Stagiaire createdStagiaire = stagiaireService.createStagiaire(stagiaire);
-        return new ResponseEntity<>(createdStagiaire, HttpStatus.CREATED);
+    public ResponseEntity<StagiaireDTO> createStagiaire(@RequestBody StagiaireDTO stagiaireDTO) {
+        return new ResponseEntity<>(stagiaireService.createStagiaire(stagiaireDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Stagiaire> updateStagiaire(
+    public ResponseEntity<StagiaireDTO> updateStagiaire(
             @PathVariable Long id,
-            @RequestBody Stagiaire stagiaire) {
-        Stagiaire updatedStagiaire = stagiaireService.updateStagiaire(id, stagiaire);
-        return new ResponseEntity<>(updatedStagiaire, HttpStatus.OK);
+            @RequestBody StagiaireDTO stagiaireDTO) {
+        return new ResponseEntity<>(stagiaireService.updateStagiaire(id, stagiaireDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
